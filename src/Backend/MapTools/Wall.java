@@ -7,11 +7,16 @@ public class Wall {
 
     private Wallable wallContent;
 
-    public Wall(Wallable content){
-        this.wallContent=content;
-    }
     public Wall(){
         this.wallContent=new Plain();
     }
+    public void setWallContent(Wallable content){
+        notNull(content);
+        this.wallContent=content;
+    }
 
+    private boolean notNull(Object obj) {
+        if (obj != null) return true;
+        throw new NullPointerException();
+    }
 }

@@ -1,11 +1,10 @@
 package Backend.Items;
+
 import Backend.Interfaces.Containable;
 import Backend.Interfaces.Tradable;
 import Backend.Interfaces.Wallable;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class Seller implements Wallable, Tradable {
 
@@ -23,25 +22,22 @@ public class Seller implements Wallable, Tradable {
         else
             throw new NullPointerException();
     }
-
     private boolean notNull(Object obj) { return (obj!=null); }
 
     public String getName() {
         return name;
     }
-
     public ArrayList<Containable> getSellerItems() {
         return sellerItems;
     }
+
 
     @Override
     public String look() {
         return this.getName();
     }
-
     @Override
     public void trade() {
-        Scanner in = new Scanner(System.in);
         boolean finish = false;
         if(this.sellerItems.size()>0){
             displayContent();
@@ -72,7 +68,6 @@ public class Seller implements Wallable, Tradable {
         System.out.println("3. List");
         System.out.println("4. Finish");
     }
-
     private void displayContent() {
         System.out.println("\n"+this.name + " have these items:- ");
         System.out.println("Item        Price");

@@ -1,7 +1,10 @@
 package Backend;
 
 import Backend.Builders.ChestBuilder;
+import Backend.Builders.DoorBuilder;
+import Backend.Builders.RoomBuilder;
 import Backend.Items.*;
+import Backend.MapTools.Room ;
 
 public class testing {
     public static void main(String[] args) {
@@ -36,9 +39,15 @@ public class testing {
         baraa.addItem(fl);
 //        baraa.trade();
 
-     Door door = new Door("kk",false,petraKey);
+     Door door = new DoorBuilder().setName("Petra Door").setLocked(false).setRequestedKey(petraKey).build();
      door.check();
      door.useKey(petraKey);
      door.check();
+
+     Room room = new RoomBuilder().setDark(true).setHasLights(false).build();
+
+
+
+
     }
 }
