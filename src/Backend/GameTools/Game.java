@@ -1,15 +1,13 @@
 package Backend.GameTools;
 
 import Backend.Enums.Directions;
-import Backend.Enums.DoorCommands;
+import Backend.Enums.ItemEnums.DoorCommands;
 import Backend.Enums.MainCommands;
 import Backend.Enums.NavigationCommands;
 import Backend.Interfaces.Containable;
 import Backend.Interfaces.Wallable;
 import Backend.Items.*;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
@@ -28,10 +26,10 @@ public class Game {
     public void start(){
 
         System.out.println("Hello! Welcome to the game");
-        boolean finish = false;
+        boolean finishGame = false;
         showMainOptions();
 
-        while(!finish) {
+        while(!finishGame) {
             char commandEntered = getCharInput();
 
             while(checkIfNavCommand(commandEntered)){
@@ -51,6 +49,11 @@ public class Game {
             System.out.println(this.currentRoom.look(this.player.getPos(),this.player.getFlashlight()));
             if(! this.currentRoom.isDark(this.player.getFlashlight()) ){
                 showSubOptions(this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent());
+                boolean finishSuboptions = false;
+
+                while(!finishSuboptions) {
+                    char subCommand = getCharInput();
+                }
 
             }
             return;
@@ -79,7 +82,7 @@ public class Game {
             System.exit(1);
         }
     }
-    
+
     private boolean checkIfNavCommand(char commandEntered) {
 
         if(commandEntered == NavigationCommands.Left.asChar){
