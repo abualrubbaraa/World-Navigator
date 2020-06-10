@@ -23,6 +23,7 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
         this.linkedDoor = this;
     }
 
+
     public void setLocked(boolean locked) {
         isLocked = locked;
     }
@@ -61,7 +62,6 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
         if (this.requestedKey == key) {
             isLocked = !isLocked;
             this.linkedDoor.setLocked(isLocked);
-
             return(Door.className()+ ((isLocked == true) ? " looked" : " opened"));
         } else
             return(key.getName() + " key is not suitable for this door." + this.requestedKey.getName() + " needed.\n");

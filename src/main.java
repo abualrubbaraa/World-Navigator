@@ -9,17 +9,15 @@
 //    }
 //}
 
+import Backend.GameTools.Player;
+import Backend.MapFactory;
+import Controller.Game;
+
 public class main {
     public static void main(String[] args) {
 
-//        Game worldNavigator = new Game().JordanMap();
-//        worldNavigator.start();
-
-//        Timer timer = new Timer();
-//        TimerTask task = new Helper();
-//
-//        timer.schedule(task, 0, 1000);
-//
+        Game worldNavigator = new Game(new MapFactory().getDemoMap(),new Player(),600);
+        worldNavigator.start();
 
     }
 }

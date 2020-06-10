@@ -1,18 +1,13 @@
 # World-Navigator
 Atypon's project.
 
+### You will find: -
 
-# Effective Java :-
-1. Item 1  :  CONSIDER STATIC FACTORY METHODS INSTEAD OF CONSTRUCTORS
-	- Wall class, Key and many more.
-
-
-** In Wall we used plain class as a null object pettern.
-
-
-
-
-# Remember to fix : 
-1. null objects : Key..
-2. in  
+| Report Part | link |
+| ----------- | ----------- |
+| Clean Code | Title |
+| Effictive Java | Text |
+| Design Patterns | Text |
+| Effictive Java | Text |
+| SOLID principles | Text |
 

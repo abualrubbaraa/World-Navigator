@@ -5,13 +5,14 @@ import Backend.Enums.Directions;
 import Backend.Enums.ItemEnums.*;
 import Backend.Enums.NavigationCommands;
 import Backend.GameTools.GameMap;
+import Backend.GameTools.MyTimer;
 import Backend.GameTools.Player;
 import Backend.GameTools.Room;
 import Backend.Interfaces.*;
 import Backend.Items.*;
 import Backend.Items.NullObjects.EmptyKey;
 
-import java.nio.channels.SeekableByteChannel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -21,27 +22,32 @@ public class Game {
     private GameMap map;
     private Player player;
     private Room currentRoom;
+    private MyTimer gameTimer;
+    private int timeForGame;
 
 
-    public Game(GameMap map, Player player){
-        this.map=map;
-        this.player =player;
-        this.currentRoom=map.getStartRoom();
+    public Game(GameMap map, Player player, int timeForGame) {
+        this.map = map;
+        this.player = player;
+        this.currentRoom = map.getStartRoom();
+        this.timeForGame = timeForGame;
     }
-    public void init(){
+
+    public void init() {
 
     }
-    public void start(){
+
+    public void start() {
 
         System.out.println("Hello! Welcome to the game..\n Good Luck :) \n");
-
+        gameTimer = new MyTimer(this.timeForGame);
         boolean finishGame = false;
         showMainOptions();
 
-        while(!finishGame) {
+        while (!finishGame) {
             char commandEntered = getMainCommand();
             // if Navigations commands -> do then ask again until Base command.
-            while(runNavCommand(commandEntered)) {
+            while (runNavCommand(commandEntered)) {
                 commandEntered = getMainCommand();
             }
             runBaseCommand(commandEntered);
@@ -54,8 +60,8 @@ public class Game {
     private char getMainCommand() {
         Scanner in = new Scanner(System.in);
         char commandCharecter;
-        while(true) {
-            commandCharecter= getCharacter();
+        while (true) {
+            commandCharecter = getCharacter();
             for (BaseCommands c : BaseCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
@@ -65,94 +71,105 @@ public class Game {
             System.out.println("** command character entered not from the options **");
         }
     }
-    private char getPaintingCommand(){
+
+    private char getPaintingCommand() {
         char commandCharecter;
-        while(true) {
+        while (true) {
             commandCharecter = getCharacter();
 
             for (PaintingCommands c : PaintingCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
-            if(commandCharecter=='b')
+            if (commandCharecter == 'b')
                 return commandCharecter;
             System.out.println("** command character entered not from the options **");
         }
     }
-    private char getMirrorCommand(){
+
+    private char getMirrorCommand() {
         char commandCharecter;
-        while(true) {
+        while (true) {
             commandCharecter = getCharacter();
 
             for (MirrorCommands c : MirrorCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
-            if(commandCharecter=='b')
+            if (commandCharecter == 'b')
                 return commandCharecter;
             System.out.println("** command character entered not from the options **");
         }
     }
-    private char getChestCommand(){
+
+    private char getChestCommand() {
         char commandCharecter;
-        while(true) {
+        while (true) {
             commandCharecter = getCharacter();
 
             for (ChestCommands c : ChestCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
-            if(commandCharecter=='b')
+            if (commandCharecter == 'b')
                 return commandCharecter;
 
             System.out.println("** command character entered not from the options **");
         }
     }
-    private char getDoorCommand(){
+
+    private char getDoorCommand() {
         char commandCharecter;
-        while(true) {
+        while (true) {
             commandCharecter = getCharacter();
 
             for (DoorCommands c : DoorCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
-            if(commandCharecter=='b')
+            if (commandCharecter == 'b')
                 return commandCharecter;
 
             System.out.println("** command character entered not from the options **");
         }
     }
-    private char getSellerCommand(){
+
+    private char getSellerCommand() {
         char commandCharecter;
-        while(true) {
+        while (true) {
             commandCharecter = getCharacter();
 
             for (SellerCommands c : SellerCommands.values())
                 if (c.asChar == commandCharecter)
                     return commandCharecter;
-            if(commandCharecter=='b')
+            if (commandCharecter == 'b')
                 return commandCharecter;
             System.out.println("** command character entered not from the options **");
         }
     }
+
     private char getCharacter() {
         Scanner in = new Scanner(System.in);
-        String tempIn =in.next();
-        while(tempIn.length()!=1) {
+        String tempIn = in.next();
+        while (tempIn.length() != 1) {
             System.out.println("Please enter valid command character ..");
             tempIn = in.next();
         }
         return tempIn.charAt(0);
     }
-    private int getNumberInRange(int from,int to){
+
+    private int getNumberInRange(int from, int to) {
         Scanner in = new Scanner(System.in);
         int commandNumber;
-        boolean first=true;
+        boolean first = true;
         do {
-            if(!first){ System.out.println("** number not in the range **"); }
+            if (!first) {
+                System.out.println("** number not in the range **");
+            }
             while (!in.hasNextInt()) {
                 String input = in.next();
                 System.out.printf("\"%s\" is not a valid number.\n", input);
             }
             commandNumber = in.nextInt();
-            if(first) { first = false; }
+            if (first) {
+                first = false;
+            }
 
         } while (commandNumber < from || commandNumber > to);
 
@@ -160,25 +177,24 @@ public class Game {
     }
 
 
-
     // running
     private boolean runNavCommand(char mainCommand) {
 
-        if(mainCommand == NavigationCommands.Left.asChar){
+        if (mainCommand == NavigationCommands.Left.asChar) {
             this.player.moveLeft();
-            System.out.println("Facing "+this.player.getPos());
+            System.out.println("Facing " + this.player.getPos());
             return true;
         }
-        if(mainCommand == NavigationCommands.Right.asChar){
+        if (mainCommand == NavigationCommands.Right.asChar) {
             this.player.moveRight();
-            System.out.println("Facing "+this.player.getPos());
+            System.out.println("Facing " + this.player.getPos());
             return true;
         }
-        if(mainCommand == NavigationCommands.Forward.asChar){
-            System.out.println("Facing "+this.player.getPos());
-            if(this.currentRoom.loofIfDoor(this.player.getPos())){
+        if (mainCommand == NavigationCommands.Forward.asChar) {
+            System.out.println("Facing " + this.player.getPos());
+            if (this.currentRoom.loofIfDoor(this.player.getPos())) {
                 Door tempDoor = this.currentRoom.getIfDoor(this.player.getPos());
-                if(!tempDoor.isLocked()){
+                if (!tempDoor.isLocked()) {
                     this.currentRoom = tempDoor.getSideRoom();
                     System.out.println("Entered new Room..");
                 }
@@ -186,11 +202,11 @@ public class Game {
             return true;
         }
 
-        if(mainCommand == NavigationCommands.Backword.asChar){
-            System.out.println("Facing "+this.player.getPos());
-            if( this.currentRoom.loofIfDoor(Directions.getOppositeDirection(this.player.getPos())) ){
-                Door tempDoor =this.currentRoom.getIfDoor( Directions.getOppositeDirection(this.player.getPos() ) );
-                if(!tempDoor.isLocked())
+        if (mainCommand == NavigationCommands.Backword.asChar) {
+            System.out.println("Facing " + this.player.getPos());
+            if (this.currentRoom.loofIfDoor(Directions.getOppositeDirection(this.player.getPos()))) {
+                Door tempDoor = this.currentRoom.getIfDoor(Directions.getOppositeDirection(this.player.getPos()));
+                if (!tempDoor.isLocked())
                     this.currentRoom = tempDoor.getSideRoom();
                 System.out.println("Entered new Room..");
             }
@@ -198,62 +214,68 @@ public class Game {
         }
         return false;
     }
-    private void runBaseCommand(char mainCommand)  {
-        // Done
-        if(mainCommand == BaseCommands.Look.asChar) {
 
-            System.out.println("    *"+this.currentRoom.look(this.player.getPos(),this.player.getFlashlight())+"*    ");
-            if(! this.currentRoom.isDark(this.player.getFlashlight()) ){
+    private void runBaseCommand(char mainCommand) {
+        // Done
+        if (mainCommand == BaseCommands.Look.asChar) {
+
+            System.out.println("    *" + this.currentRoom.look(this.player.getPos(), this.player.getFlashlight()) + "*    ");
+            if (!this.currentRoom.isDark(this.player.getFlashlight())) {
                 runSubCommands(this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent());
             }
             return;
         }
         // Done
-        if(mainCommand == BaseCommands.Use_Flashlight.asChar) {
-            if(this.player.hasFlashlight())
-                if( this.player.getFlashlight().switchFlashlight() ){
-                    System.out.println(FlashLight.className()+" switched to "+((this.player.getFlashlight().isLit()==true)?"on":"off"));
+        if (mainCommand == BaseCommands.Use_Flashlight.asChar) {
+            if (this.player.hasFlashlight())
+                if (this.player.getFlashlight().switchFlashlight()) {
+                    System.out.println(FlashLight.className() + " switched to " + ((this.player.getFlashlight().isLit() == true) ? "on" : "off"));
                     return;
                 }
             System.out.println("You dosn't have Flashlight..");
         }
         // Done
-        if(mainCommand == BaseCommands.Turn_Lights.asChar) { this.currentRoom.switchLights(); }
+        if (mainCommand == BaseCommands.Turn_Lights.asChar) {
+            this.currentRoom.switchLights();
+        }
         // Done
-        if(mainCommand == BaseCommands.Player_Status.asChar) { displayPlayerStatus(); }
+        if (mainCommand == BaseCommands.Player_Status.asChar) {
+            displayPlayerStatus();
+        }
         // not yet
-        if(mainCommand == BaseCommands.Restart.asChar) {
+        if (mainCommand == BaseCommands.Restart.asChar) {
             System.out.println("Restarting ..\n \n \n");
             start();
         }
         // Done
-        if(mainCommand == BaseCommands.Quit.asChar) {
+        if (mainCommand == BaseCommands.Quit.asChar) {
             System.out.println("Ending game ..");
             System.exit(1);
         }
     }
+
     private void runSubCommands(Wallable wall) {
         notNull(wall);
         String lookValue = wall.look();
-        System.out.println(lookValue+" commands, please choose form them:- ");
+        System.out.println(lookValue + " commands, please choose form them:- ");
 
-        if(lookValue == Door.className()){
+        if (lookValue == Door.className()) {
             showDoorSubOptions();
             runDoorSubOptions();
         }
-        if(lookValue== Painting.className()){
+        if (lookValue == Painting.className()) {
             showPaintingSubOptions();
             runPaintingSubOptions();
         }
-        if(lookValue== Mirror.className()){
+        if (lookValue == Mirror.className()) {
             showMirrorSubOptions();
             runMirrorSubOptions();
         }
-        if(lookValue== Chest.className()){
+        if (lookValue == Chest.className()) {
             showChestSubOptions();
             runChestSubOptions();
         }
-        if(lookValue== Seller.className()){
+        if (lookValue == Seller.className()) {
             showSelleSubOptions();
             runSellerSubOptions();
         }
@@ -263,34 +285,55 @@ public class Game {
     private void runDoorSubOptions() {
         char subCommand = getDoorCommand();
 
-        if(subCommand == DoorCommands.check.asChar){
-           if ( ((Checkable.ForOpenablility) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).check())
-               System.out.println("Door is open");
-           else
-               System.out.println("Door is locked, "+
-                       ((Door)this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).getRequestedKey().getName() +
-                       "key is needed to unlock");
+        if (subCommand == DoorCommands.check.asChar) {
+            if (((Checkable.ForOpenablility) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).check()) {
+                System.out.println("Door is open");
+                if (isLinkingEndRoom(((Door) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent())))
+                    wonGame();
+            } else
+                System.out.println("Door is locked, " +
+                        ((Door) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).getRequestedKey().getName() +
+                        "key is needed to unlock");
         }
-        if(subCommand == DoorCommands.open.asChar){
-            ((Door)this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).open();
+        if (subCommand == DoorCommands.open.asChar) {
+            ((Door) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).open();
+
         }
-        if(subCommand == DoorCommands.use_Key.asChar){
-           if(this.player.getKeys().size() >0){
-            System.out.println("Which key you want? (please choose the number)");
-            showPlayerKeys();
-            int keyNumber = getNumberInRange(1,this.player.getKeys().size())-1;
-               System.out.println(((Lockable)(this.currentRoom
-                    .getWallInDirection(this.player.getPos())
-                    .getWallContent()))
-                    .useKey(this.player.getKeyNumber(keyNumber)) );
-           }
-           else
-               System.out.println("Player doesn't have any keys..");
+        if (subCommand == DoorCommands.use_Key.asChar) {
+            if (this.player.getKeys().size() > 0) {
+                System.out.println("Which key you want? (please choose the number)");
+                showPlayerKeys();
+                int keyNumber = getNumberInRange(1, this.player.getKeys().size()) - 1;
+                System.out.println(((Lockable) (this.currentRoom
+                        .getWallInDirection(this.player.getPos())
+                        .getWallContent()))
+                        .useKey(this.player.getKeyNumber(keyNumber)));
+
+                if( ((Checkable.ForOpenablility) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()).check())
+                    if(isLinkingEndRoom((Door) this.currentRoom.getWallInDirection(this.player.getPos()).getWallContent()))
+                        wonGame();
+
+            } else
+                System.out.println("Player doesn't have any keys..");
         }
 
-        if(subCommand== 'b')
+        if (subCommand == 'b')
             System.out.println("back to main menu..");
     }
+
+    private void wonGame() {
+        System.out.println("Congratulations!! You Won!!");
+        System.out.println("Your time is "+this.gameTimer.getTimePassed());
+        System.exit(1);
+    }
+
+    private boolean isLinkingEndRoom(Door door){
+        if(door.getSideRoom()==this.map.getEndRoom())
+            return true;
+        else
+            return false;
+    }
+
     private void runPaintingSubOptions(){
         char subCommand = getPaintingCommand();
         if(subCommand == PaintingCommands.check.asChar){
@@ -509,6 +552,7 @@ public class Game {
     }
     private void displayPlayerStatus(){
         System.out.println(" *** ");
+        System.out.println("    Time left :- "+ this.gameTimer.getTimeLeft() );
         System.out.println("    Your direction : "+this.player.getPos());
         System.out.println("    You have : "+ this.player.getMoney()+" of Gold!");
         System.out.println("    You have those items :-");

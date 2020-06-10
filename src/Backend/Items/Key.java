@@ -4,28 +4,28 @@ import Backend.Interfaces.Containable;
 
 public class Key implements Containable {
 
-    private final String name;
-    private final int price;
-    private final String relatedLock;
+    private  String name;
+    private  int price;
+    private  String relatedDoor;
 
-    public Key(String name, int price, String relatedLock){
-        if(notNull(name) && notNull(relatedLock) && price>=0)
+    public Key(String name, int price, String relatedDoor){
+        if(notNull(name) && notNull(relatedDoor) && price>=0)
         {
             this.name=name;
             this.price= price;
-            this.relatedLock=relatedLock;
+            this.relatedDoor=relatedDoor;
         }
         else
             throw new NullPointerException();
     }
+
     private boolean notNull(Object obj){
         if(obj!=null)
             return true;
         return false;
     }
-
     public String getRelatedDoor() {
-        return relatedLock;
+        return relatedDoor;
     }
 
     @Override
@@ -39,6 +39,9 @@ public class Key implements Containable {
     @Override
     public String getDescription() { return (this.name + " Key"); }
 
+    public void setRelatedDoor(String relatedDoor){
+        this.relatedDoor=relatedDoor;
+    }
     public static String className(){
         return "Key";
     }

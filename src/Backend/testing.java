@@ -9,6 +9,9 @@ import Backend.GameTools.Player;
 import Backend.Items.*;
 import Backend.GameTools.GameMap;
 import Backend.GameTools.Room ;
+import Controller.GameBuiler;
+
+import java.util.Scanner;
 
 
 public class testing {
@@ -51,6 +54,7 @@ public class testing {
      door.useKey(petraKey);
 
      Room room = new RoomBuilder().setDark(true).setHasLights(true).build();
+
      room.getWallInDirection(Directions.NORTH).setWallContent(Painting.valueOf(petraKey));
      room.getWallInDirection(Directions.SOUTH).setWallContent(c);
      System.out.println("***********");
@@ -64,10 +68,8 @@ public class testing {
      GameMap map = new GameMap(room,room2);
 
 
-     Game game = new Game(map,new Player());
+     Game game = new GameBuiler().setMap(map).setPlayer(new Player()).build();
      game.start();
-
-
 
 
     }

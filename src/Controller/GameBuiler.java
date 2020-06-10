@@ -2,12 +2,17 @@ package Controller;
 
 import Backend.GameTools.GameMap;
 import Backend.GameTools.Player;
-import Backend.GameTools.Room;
-import Backend.Items.NullObjects.EmptyRoom;
 
 public class GameBuiler {
+
     private GameMap map=null;
     private Player player= new Player();
+    private int timeForGame=600;
+
+    public GameBuiler setTimeForGame(int timeForGame) {
+        this.timeForGame = timeForGame;
+        return this;
+    }
 
     public GameBuiler setMap(GameMap map) {
         this.map = map;
@@ -20,6 +25,7 @@ public class GameBuiler {
     }
 
     public Game build(){
-        return new Game(this.map,this.player);
+        return new Game(this.map,this.player, this.timeForGame);
     }
+
 }

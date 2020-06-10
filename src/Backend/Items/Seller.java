@@ -14,10 +14,10 @@ public class Seller implements Wallable, Tradable {
     private ArrayList<Containable> sellerItems;
     private ArrayList<Containable> selleingList;
 
-    public Seller(){
+    public Seller(ArrayList<Containable> selleingList){
         this.name = "Seller";
         this.sellerItems = new ArrayList<>();
-        selleingList = this.sellerItems;
+        this.selleingList = selleingList;
     }
 
     public void addItem(Containable item){
