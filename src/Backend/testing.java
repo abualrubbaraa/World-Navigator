@@ -3,8 +3,14 @@ package Backend;
 import Backend.Builders.ChestBuilder;
 import Backend.Builders.DoorBuilder;
 import Backend.Builders.RoomBuilder;
+import Backend.Enums.Directions;
+import Backend.GameTools.Game;
+import Backend.GameTools.Player;
 import Backend.Items.*;
-import Backend.MapTools.Room ;
+import Backend.GameTools.Map;
+import Backend.GameTools.Room ;
+
+
 
 public class testing {
     public static void main(String[] args) {
@@ -43,11 +49,28 @@ public class testing {
      door.check();
      door.useKey(petraKey);
      door.check();
+     door.useKey(petraKey);
 
-     Room room = new RoomBuilder().setDark(true).setHasLights(false).build();
+     Room room = new RoomBuilder().setDark(true).setHasLights(true).build();
+     room.getWallInDirection(Directions.NORTH).setWallContent(Painting.valueOf(petraKey));
+
+     System.out.println("***********");
+//     ((Painting) (room.getWallInDirection(Directions.NORTH).getWallContent())).check();
+//     ((Painting) (room.getWallInDirection(Directions.NORTH).getWallContent())).check();
+
+     Room room2 = new RoomBuilder().setDark(true).build();
+
+     room.addDoorToRoom(door,room2,Directions.WEST);
+
+//     System.out.println(((Door)(room.getWallInDirection(Directions.WEST).getWallContent())).getSideRoom() );
+
+//     System.out.println(((Door)(room2.getWallInDirection(Directions.EAST).getWallContent())).getSideRoom());
+
+     Map map = new Map(room,room2);
 
 
-
+     Game game = new Game(map,new Player());
+     game.start();
 
     }
 }

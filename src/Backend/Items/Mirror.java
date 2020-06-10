@@ -44,8 +44,10 @@ public class Mirror implements Wallable, Checkable {
     public String look() { return this.name; }
     @Override
     public void check() {
-        if( this.itemIn.getDescription() != EmptyKey.description())
+        if( this.itemIn.getDescription() != EmptyKey.description()){
             System.out.println("The "+this.itemIn.getName()+" key was acquired");
+            this.itemIn = new EmptyKey();
+        }
         else
             System.out.println(EmptyKey.description());
     }

@@ -1,6 +1,6 @@
 package Backend.Builders;
 
-import Backend.MapTools.Room;
+import Backend.GameTools.Room;
 
 public class RoomBuilder {
     private boolean isDark=false;

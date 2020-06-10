@@ -3,14 +3,12 @@ package Backend.Builders;
 import Backend.Items.Door;
 import Backend.Items.Key;
 import Backend.Items.NullObjects.EmptyKey;
-import Backend.MapTools.Room;
 
 public class DoorBuilder {
 
-    private String name= "Door";
+    private String name;
     private Key requestedKey = new EmptyKey();
     private boolean isLocked = true;
-    private Room mainRoom, sideRoom;
 
 
     public DoorBuilder setName(String name) {
@@ -26,15 +24,11 @@ public class DoorBuilder {
         isLocked = locked;
         return this;
     }
-    public DoorBuilder setSides(Room[] sides) {
-        this.sides = sides;
-        return this;
-    }
 
     public Door build(){
-        if( (this.requestedKey.getDescription() == EmptyKey.description()) || this.name=="Door")
+        if( (this.requestedKey.getDescription() == EmptyKey.description()) || this.name==null)
             throw new IllegalArgumentException();
-        return new Door(this.name,this.isLocked,this.requestedKey,this.sides);
+        return new Door(this.name,this.isLocked,this.requestedKey);
     }
 
     private boolean notNull(Object obj) {
