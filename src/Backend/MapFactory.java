@@ -35,7 +35,7 @@ public class MapFactory {
       rooms[4] =roomBuilder.setDark(true).setHasLights(true).build();
 
       Painting paintingForRoom1 = Painting.getInstance();
-      Key key1 = new Key("Petra",50,new NullDoor().getName());
+      Key key1 = new Key("Petra",50,"");
 
       this.itemsInMap.add(key1);
       Door door1 = doorBuilder.setName("Petra").setLocked(true).setRequestedKey(key1).build();
@@ -51,7 +51,7 @@ public class MapFactory {
       rooms[0].addDoorToRoom(door1,rooms[1],Directions.SOUTH);
       rooms[0].getWallInDirection(Directions.WEST).setWallContent(mirrorForRoom1);
 
-      Key key2 = new Key("Dead Sea",60,new NullDoor().getName());
+      Key key2 = new Key("Dead Sea",60,"");
       Door door2 = doorBuilder.setName("Dead Sea").setLocked(true).setRequestedKey(key2).build();
       key2.setRelatedDoor(door2.getName());
 
@@ -59,7 +59,7 @@ public class MapFactory {
       rooms[1].getWallInDirection(Directions.WEST).setWallContent(paint2);
       rooms[1].addDoorToRoom(door2,rooms[2],Directions.EAST);
 
-      Key key3 = new Key("Aqaba",40,new NullDoor().getName());
+      Key key3 = new Key("Aqaba",40,"");
       Door door3 = doorBuilder.setName("Aqaba").setLocked(true).setRequestedKey(key3).build();
       key3.setRelatedDoor(door3.getName());
 

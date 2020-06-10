@@ -42,9 +42,9 @@ public class testing {
 //        c.useKey(petraKey);
 //        c.useKey(new Key("jj",90,"l"));
 
-        Seller baraa = new Seller();
-        baraa.addItem(petraKey);
-        baraa.addItem(fl);
+////        Seller baraa = new Seller();
+//        baraa.addItem(petraKey);
+//        baraa.addItem(fl);
 
 
      Door door = new DoorBuilder().setName("Petra Door").setLocked(true).setRequestedKey(petraKey).build();
@@ -63,7 +63,7 @@ public class testing {
      Room room2 = new RoomBuilder().setDark(true).build();
 
      room.addDoorToRoom(door,room2,Directions.WEST);
-     room.getWallInDirection(Directions.EAST).setWallContent(baraa);
+//     room.getWallInDirection(Directions.EAST).setWallContent(baraa);
 
      GameMap map = new GameMap(room,room2);
 
