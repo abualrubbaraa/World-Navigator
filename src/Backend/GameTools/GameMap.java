@@ -1,10 +1,10 @@
 package Backend.GameTools;
 
-public class Map {
+public class GameMap {
     private Room startRoom;
     private Room endRoom;
 
-    public  Map(Room startRoom,Room endRoom){
+    public GameMap(Room startRoom, Room endRoom){
         this.startRoom = startRoom;
         this.endRoom = endRoom;
     }

@@ -1,9 +1,12 @@
 package Backend.Enums.ItemEnums;
 
 public enum DoorCommands {
-    check,open,use_Key;
+    check('c'),open('o'),use_Key('k');
     public int asInt;
-    private DoorCommands(){
+    public char asChar;
+
+    private DoorCommands(char c){
         this.asInt = ordinal();
+        this.asChar = c;
     }
 }

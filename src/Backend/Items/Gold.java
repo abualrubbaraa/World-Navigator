@@ -19,4 +19,7 @@ public class Gold implements Containable {
     @Override
     public String getDescription() { return this.goldPrice+" of "+this.name; }
 
+    public static String className(){
+        return "Gold";
+    }
 }

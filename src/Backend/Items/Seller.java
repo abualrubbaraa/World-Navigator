@@ -1,8 +1,10 @@
 package Backend.Items;
 
+import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Containable;
 import Backend.Interfaces.Tradable;
 import Backend.Interfaces.Wallable;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,10 +12,12 @@ public class Seller implements Wallable, Tradable {
 
     private String name;
     private ArrayList<Containable> sellerItems;
+    private ArrayList<Containable> selleingList;
 
     public Seller(){
         this.name = "Seller";
         this.sellerItems = new ArrayList<>();
+        selleingList = this.sellerItems;
     }
 
     public void addItem(Containable item){
@@ -34,31 +38,35 @@ public class Seller implements Wallable, Tradable {
 
     @Override
     public String look() {
-        return this.getName();
+        return Seller.className();
     }
+
+
     @Override
-    public void trade() {
-        boolean finish = false;
-        if(this.sellerItems.size()>0){
-            displayContent();
-            while(!finish){
-                displayTradeOptions();
-                int commandNumber = getInput(1,4,"Please enter a positive number of the command you want. ");
-                switch (commandNumber){
-                    case 3 :
-                        displayContent();
-                        break;
-                    case 4 :
-                        finish =true;
-                        break ;
-                    case 1 :
-                    case 2 :
-                        int itemNumber = getInput(1,this.sellerItems.size(),"Please enter the item number..");
-                        System.out.println(itemNumber);
-                        break;
-                }
-            }
+    public ArrayList<Containable> getItems() {
+        return this.sellerItems;
+    }
+
+    @Override
+    public ArrayList<Containable> getSellList() {
+        return this.selleingList;
+    }
+
+
+    @Override
+    public boolean sellItem(Containable item) {
+        notNull(item);
+        if(this.sellerItems.contains(item)){
+            this.sellerItems.remove(item);
+            return true;
         }
+        return false;
+    }
+
+    @Override
+    public void buyItem(Containable item) {
+        notNull(item);
+        this.sellerItems.add(item);
     }
 
     private void displayTradeOptions() {
@@ -93,5 +101,7 @@ public class Seller implements Wallable, Tradable {
         } while (commandNumber < from || commandNumber > to);
         return commandNumber;
     }
-
+    public static String className(){
+        return "Seller";
+    }
 }

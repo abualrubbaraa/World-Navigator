@@ -1,9 +1,11 @@
 package Backend.Enums.ItemEnums;
 
 public enum PaintingCommands {
-    check;
+    check('c');
     public int asInt;
-    private PaintingCommands(){
+    public char asChar;
+    private PaintingCommands(char c){
         this.asInt = ordinal();
+        this.asChar = c;
     }
 }

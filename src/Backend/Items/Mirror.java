@@ -4,7 +4,7 @@ import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Wallable;
 import Backend.Items.NullObjects.EmptyKey;
 
-public class Mirror implements Wallable, Checkable {
+public class Mirror implements Wallable, Checkable.ForContent {
     private final String name;
     private Key itemIn;
 
@@ -41,14 +41,20 @@ public class Mirror implements Wallable, Checkable {
     }
 
     @Override
-    public String look() { return this.name; }
+    public String look() { return Mirror.className(); }
+
     @Override
-    public void check() {
+    public Key check() {
         if( this.itemIn.getDescription() != EmptyKey.description()){
-            System.out.println("The "+this.itemIn.getName()+" key was acquired");
+            Key tempKey = this.itemIn;
             this.itemIn = new EmptyKey();
+            return tempKey;
         }
         else
-            System.out.println(EmptyKey.description());
+            return new EmptyKey();
+    }
+
+    public static String className(){
+        return "Mirror";
     }
 }

@@ -1,6 +1,6 @@
 package Backend.Enums;
 
-public enum MainCommands {
+public enum BaseCommands {
 
     Look('l'),
     Use_Flashlight('f'),
@@ -10,7 +10,7 @@ public enum MainCommands {
     Quit('q');
 
     public char asChar;
-    MainCommands(char c) {
+    BaseCommands(char c) {
         this.asChar=c;
     }
 

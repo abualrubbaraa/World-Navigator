@@ -4,7 +4,7 @@ import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Wallable;
 import Backend.Items.NullObjects.EmptyKey;
 
-public class Painting implements Wallable,Checkable {
+public class Painting implements Wallable,Checkable.ForContent{
 
     private final String name;
     private Key itemIn;
@@ -37,15 +37,21 @@ public class Painting implements Wallable,Checkable {
     }
     
     @Override
-    public String look() { return this.getName(); }
+    public String look() { return Painting.className(); }
+
     @Override
-    public void check() {
-        if( this.itemIn.getDescription()!= EmptyKey.description() ){
-            System.out.println("The "+this.itemIn.getName()+" key was acquired");
+    public Key check() {
+        if( this.itemIn.getDescription() != EmptyKey.description()){
+            Key tempKey = this.itemIn;
             this.itemIn = new EmptyKey();
+            return tempKey;
         }
         else
-            System.out.println(EmptyKey.description());
+            return new EmptyKey();
+    }
+
+    public static String className(){
+        return "Painting";
     }
 
 }

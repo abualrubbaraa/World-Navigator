@@ -1,9 +1,11 @@
 package Backend.Enums.ItemEnums;
 
 public enum ChestCommands {
-    check,use_Key;
+    check('c'),use_Key('k');
     public int asInt;
-    private ChestCommands(){
+    public char asChar;
+    private ChestCommands(char c){
         this.asInt = ordinal();
+        this.asChar = c;
     }
 }

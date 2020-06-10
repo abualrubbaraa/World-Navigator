@@ -9,7 +9,7 @@ public class FlashLight  implements Containable {
     private boolean isLit;
 
     public FlashLight(int price){
-        this.name="Flashligh";
+        this.name = FlashLight.className();
         this.price=price;
         this.isLit=false;
     }

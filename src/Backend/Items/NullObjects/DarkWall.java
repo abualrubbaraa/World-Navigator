@@ -2,6 +2,7 @@ package Backend.Items.NullObjects;
 
 import Backend.Interfaces.Wallable;
 import Backend.GameTools.Wall;
+import Backend.Items.Door;
 
 public class DarkWall extends Wall {
 
@@ -13,5 +14,10 @@ public class DarkWall extends Wall {
                 return "Dark";
             }
         });
+
     }
+    public static String className(){
+        return "Dark "+ Door.className();
+    }
+
 }

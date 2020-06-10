@@ -1,12 +1,13 @@
 package Backend.Enums.ItemEnums;
 
 public enum MirrorCommands {
-    check;
+    check('c');
 
     public int asInt;
-
-    private MirrorCommands(){
+    public char asChar;
+    private MirrorCommands(char c){
         this.asInt = ordinal();
+        this.asChar = c;
     }
 
 }
