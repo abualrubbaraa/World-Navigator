@@ -5,11 +5,11 @@
 
 | Report Part | link |
 | ----------- | ----------- |
-| SOLID principles | https://abualrubbaraa.github.io/World-Navigator/Report/SOLID_Principles |
-| Effective Java | https://abualrubbaraa.github.io/World-Navigator/Report/EffectiveJava |
-| Design Patterns,DataStructures and Formatting | https://abualrubbaraa.github.io/World-Navigator/Report/DesignPatternsDataStructuresFormatting |
-| Clean Code | https://abualrubbaraa.github.io/World-Navigator/Report/CleanCode |
-| My Experience | https://abualrubbaraa.github.io/World-Navigator/Report/MyExperience |
+| SOLID principles | [click here](https://abualrubbaraa.github.io/World-Navigator/Report/SOLID_Principles) |
+| Effective Java | [click here](https://abualrubbaraa.github.io/World-Navigator/Report/EffectiveJava) |
+| Design Patterns,DataStructures and Formatting | [click here](https://abualrubbaraa.github.io/World-Navigator/Report/DesignPatternsDataStructuresFormatting)|
+| Clean Code | [click here](https://abualrubbaraa.github.io/World-Navigator/Report/CleanCode) |
+| My Experience | [click here](https://abualrubbaraa.github.io/World-Navigator/Report/MyExperience) |
 
 
 # Done by : baraa abualrub
