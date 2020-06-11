@@ -2,18 +2,17 @@ package Backend.Items;
 
 import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Wallable;
-import Backend.Items.NullObjects.EmptyKey;
+import Backend.Items.NullObjects.NullKey;
 
-public class Mirror implements Wallable, Checkable.ForContent {
-    private final String name;
+import java.io.Serializable;
+
+public class Mirror implements Wallable, Checkable.ForContent , Serializable {
     private Key itemIn;
 
     private Mirror(){
-        this.name="Mirror";
-        this.itemIn=new EmptyKey();
+        this.itemIn=new NullKey();
     }
     private Mirror(Key key){
-        this.name="Mirror";
         this.itemIn=key;
     }
     public static Mirror getInstance(){
@@ -33,25 +32,21 @@ public class Mirror implements Wallable, Checkable.ForContent {
         throw new NullPointerException();
     }
 
-    public String getName() {
-        return name;
-    }
     public Key getInside() {
         return itemIn;
     }
 
     @Override
     public String look() { return Mirror.className(); }
-
     @Override
     public Key check() {
-        if( this.itemIn.getDescription() != EmptyKey.description()){
+        if( this.itemIn.getDescription() != NullKey.description()){
             Key tempKey = this.itemIn;
-            this.itemIn = new EmptyKey();
+            this.itemIn = new NullKey();
             return tempKey;
         }
         else
-            return new EmptyKey();
+            return new NullKey();
     }
 
     public static String className(){

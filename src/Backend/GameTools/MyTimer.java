@@ -1,12 +1,13 @@
 package Backend.GameTools;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MyTimer {
+public class MyTimer implements Serializable {
+
     private int interval;
     private Timer timer;
-    private boolean V=true;
     private int totalTime;
 
     public MyTimer(int x){
@@ -29,17 +30,13 @@ public class MyTimer {
 
     private  int setInterval() {
         if (interval == 1){
-            V=false;
             timer.cancel();
             System.out.println("Time's Up , You lost the game :(!");
             System.exit(0);
         }
         return --interval;
     }
-    public boolean checkTime(){
-        if(!V)return false;
-        return true;
-    }
+
     public String getTimeLeft(){
         return timeFormat(interval);
     }

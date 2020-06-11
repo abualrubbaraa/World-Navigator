@@ -2,21 +2,16 @@ package Backend.Items;
 
 import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Wallable;
-import Backend.Items.NullObjects.EmptyKey;
+import Backend.Items.NullObjects.NullKey;
 
-public class Painting implements Wallable,Checkable.ForContent{
+import java.io.Serializable;
 
-    private final String name;
+public class Painting implements Wallable,Checkable.ForContent, Serializable {
+
     private Key itemIn;
 
-    private Painting(){
-        this.name="Painting";
-        this.itemIn=new EmptyKey();
-    }
-    private Painting(Key key){
-        this.name="Painting";
-        this.itemIn=key;
-    }
+    private Painting(){ this.itemIn=new NullKey(); }
+    private Painting(Key key){ this.itemIn=key; }
     public static Painting getInstance(){ return new Painting(); }
     public static Painting valueOf(Key key){ return new Painting(key); }
 
@@ -29,29 +24,24 @@ public class Painting implements Wallable,Checkable.ForContent{
         throw new NullPointerException();
     }
 
-    public String getName() {
-        return this.name;
-    }
     public Key getInside() {
         return itemIn;
     }
     
     @Override
     public String look() { return Painting.className(); }
-
     @Override
     public Key check() {
-        if( this.itemIn.getDescription() != EmptyKey.description()){
+        if( this.itemIn.getDescription() != NullKey.description()){
             Key tempKey = this.itemIn;
-            this.itemIn = new EmptyKey();
+            this.itemIn = new NullKey();
             return tempKey;
         }
         else
-            return new EmptyKey();
+            return new NullKey();
     }
 
     public static String className(){
         return "Painting";
     }
-
 }

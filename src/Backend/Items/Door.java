@@ -1,31 +1,31 @@
 package Backend.Items;
 
-import Backend.Builders.DoorBuilder;
 import Backend.Interfaces.Checkable;
 import Backend.Interfaces.Lockable;
 import Backend.Interfaces.Openable;
 import Backend.Interfaces.Wallable;
 import Backend.GameTools.Room;
 
+import java.io.Serializable;
 
-public class Door implements Wallable, Checkable.ForOpenablility, Openable , Lockable {
+
+public class Door implements Wallable, Checkable.ForOpenablility, Openable , Lockable, Serializable {
 
     private String name;
     private Key requestedKey;
-    private boolean isLocked;
+    private boolean isOpen;
     private Room sideRoom;
     private Door linkedDoor;
 
-    public Door(String name,boolean isLocked, Key requestedKey){
+    public Door(String name, boolean isOpen, Key requestedKey){
         this.name=name;
-        this.isLocked=isLocked;
+        this.isOpen = isOpen;
         this.requestedKey=requestedKey;
         this.linkedDoor = this;
     }
 
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
     public void setSideRoom(Room room){
         notNull(room);
@@ -38,7 +38,7 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
 
     public String getName() { return name; }
     public Key getRequestedKey() { return requestedKey; }
-    public boolean isLocked() { return isLocked; }
+    public boolean isOpen() { return isOpen; }
     public Room getSideRoom() { return sideRoom; }
     public Door getLinkedDoor() { return linkedDoor; }
 
@@ -46,12 +46,12 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
     public String look() { return Door.className(); }
     @Override
     public boolean check() {
-        if( ! isLocked ) return true;
+        if( !isOpen) return true;
         else return false;
     }
     @Override
     public void open() {
-        if( ! isLocked )
+        if( !isOpen)
             System.out.println("nothing happenes\n");
         else
             System.out.println(this.requestedKey.getName()+" key required to unlock\n");
@@ -60,9 +60,9 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
     public String useKey(Key key) {
         notNull(key);
         if (this.requestedKey == key) {
-            isLocked = !isLocked;
-            this.linkedDoor.setLocked(isLocked);
-            return(Door.className()+ ((isLocked == true) ? " looked" : " opened"));
+            isOpen = !isOpen;
+            this.linkedDoor.setOpen(isOpen);
+            return(Door.className()+ ((isOpen == true) ? " looked" : " opened"));
         } else
             return(key.getName() + " key is not suitable for this door." + this.requestedKey.getName() + " needed.\n");
     }

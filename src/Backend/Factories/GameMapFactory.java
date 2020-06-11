@@ -1,4 +1,4 @@
-package Backend;
+package Backend.Factories;
 
 import Backend.Builders.DoorBuilder;
 import Backend.Builders.RoomBuilder;
@@ -7,19 +7,18 @@ import Backend.GameTools.GameMap;
 import Backend.GameTools.Room;
 import Backend.Interfaces.Containable;
 import Backend.Items.*;
-import Backend.Items.NullObjects.NullDoor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MapFactory {
+public class GameMapFactory implements Serializable {
 
     private RoomBuilder roomBuilder = new RoomBuilder();
     private DoorBuilder doorBuilder = new DoorBuilder();
     private GameMap demo1Map= null;
     private  ArrayList<Containable> itemsInMap = new ArrayList<>();
 
-    public MapFactory(){
-        demoMapBuild();
+    public GameMapFactory(){
     }
 
     private void demoMapBuild(){
@@ -38,10 +37,10 @@ public class MapFactory {
       Key key1 = new Key("Petra",50,"");
 
       this.itemsInMap.add(key1);
-      Door door1 = doorBuilder.setName("Petra").setLocked(true).setRequestedKey(key1).build();
+      Door door1 = doorBuilder.setName("Petra").setOpen(true).setRequestedKey(key1).build();
       key1.setRelatedDoor(door1.getName());
       Mirror mirrorForRoom1 = Mirror.valueOf(key1);
-      Seller sellerForRoom1 = new Seller(this.itemsInMap);
+      Seller sellerForRoom1 = new Seller();
       sellerForRoom1.addItem(new FlashLight(50));
       sellerForRoom1.addItem(key1);
 
@@ -52,7 +51,7 @@ public class MapFactory {
       rooms[0].getWallInDirection(Directions.WEST).setWallContent(mirrorForRoom1);
 
       Key key2 = new Key("Dead Sea",60,"");
-      Door door2 = doorBuilder.setName("Dead Sea").setLocked(true).setRequestedKey(key2).build();
+      Door door2 = doorBuilder.setName("Dead Sea").setOpen(true).setRequestedKey(key2).build();
       key2.setRelatedDoor(door2.getName());
 
       Painting paint2 = Painting.valueOf(key2);
@@ -60,13 +59,14 @@ public class MapFactory {
       rooms[1].addDoorToRoom(door2,rooms[2],Directions.EAST);
 
       Key key3 = new Key("Aqaba",40,"");
-      Door door3 = doorBuilder.setName("Aqaba").setLocked(true).setRequestedKey(key3).build();
+      Door door3 = doorBuilder.setName("Aqaba").setOpen(true).setRequestedKey(key3).build();
       key3.setRelatedDoor(door3.getName());
 
-      this.demo1Map = new GameMap(rooms[0],rooms[2]);
+      this.demo1Map = GameMap.create(rooms[0],rooms[2],this.itemsInMap);
 
     }
     public GameMap getDemoMap(){
+        demoMapBuild();
         return this.demo1Map;
     }
 

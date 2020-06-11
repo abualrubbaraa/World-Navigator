@@ -5,57 +5,78 @@ import Backend.Interfaces.Containable;
 import Backend.Items.FlashLight;
 import Backend.Items.Gold;
 import Backend.Items.Key;
-import Backend.Items.NullObjects.EmptyKey;
+import Backend.Items.NullObjects.NullKey;
 import Backend.Items.NullObjects.NullFlashlight;
 
-import java.net.ConnectException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
 
-    private Directions pos;
+    private Directions direction;
     private int money;
-    private ArrayList<Key> keys;
     private FlashLight flashlight;
+    private ArrayList<Key> playerKeys;
 
     public Player(){
-        this.pos=Directions.NORTH;
-        this.keys=new ArrayList<>();
+        this.direction =Directions.NORTH;
+        this.playerKeys =new ArrayList<>();
         this.money = 0;
         this.flashlight= new NullFlashlight();
+    }
+    public Player(Directions direction,int money,FlashLight flashLight){
+        this.direction = direction;
+        this.money = money;
+        this.flashlight = flashLight;
+        this.playerKeys = new ArrayList<>();
     }
 
     public int getMoney() {
         return this.money;
     }
-    public ArrayList<Key> getKeys(){
-        return this.keys;
+    public ArrayList<Key> getPlayerKeys(){
+        return this.playerKeys;
     }
-
     public boolean hasFlashlight(){
-        return (this.flashlight.getName() != NullFlashlight.className());
+        return (this.flashlight.getDescription() != NullFlashlight.className());
     }
     public boolean hasKey(Key key){
         notNull(key);
-        return this.keys.contains(key);
+        return this.playerKeys.contains(key);
     }
-    public Key getKey(Key key){
-        notNull(key);
-        if(this.keys.contains(key)) {
-            this.keys.remove(key);
-            return key;
-        }
-        return new EmptyKey();
-    }
-    public Key getKeyNumber(int keypos){
-        if(keypos >=0 && keypos<this.keys.size())
-            return this.keys.get(keypos);
+    public Key getKeyPosition(int keypos){
+        if(keypos >=0 && keypos<this.playerKeys.size())
+            return this.playerKeys.get(keypos);
         throw new IndexOutOfBoundsException();
     }
     public FlashLight getFlashlight(){
         return this.flashlight;
     }
 
+    public void addItem(Containable item){
+        notNull(item);
+        if(item instanceof FlashLight){
+            if(this.flashlight.getName()==NullFlashlight.className())
+                this.flashlight = (FlashLight) item;
+        }
+        else if(item instanceof Gold)
+            this.money += ((Gold)item).getPrice();
+        else if(item instanceof Key)
+            addKey((Key)item);
+    }
+    private void addKey(Key key){
+        notNull(key);
+        if(!key.getDescription().equals(NullKey.description()));
+            this.playerKeys.add(key);
+    }
+    public Key takeKey(Key key){
+        notNull(key);
+        if(this.playerKeys.contains(key)) {
+            this.playerKeys.remove(key);
+            return key;
+        }
+        return new NullKey();
+    }
 
     public boolean buyItem(Containable item){
         notNull(item);
@@ -77,9 +98,9 @@ public class Player {
             }
         }
         else if(item instanceof Key){
-            if(keys.contains(item)){
+            if(playerKeys.contains(item)){
                 this.money+=item.getPrice();
-                this.keys.remove(item);
+                this.playerKeys.remove(item);
                 return true;
             }
             else
@@ -87,54 +108,28 @@ public class Player {
         }
         return false;
     }
-    public void addItem(Containable item){
-        notNull(item);
 
-        if(item instanceof FlashLight){
-            if(this.flashlight.getName()==NullFlashlight.className())
-                this.flashlight = (FlashLight) item;
-        }
-        else if(item instanceof Gold)
-            this.money += ((Gold)item).getPrice();
-        else if(item instanceof Key)
-            addKey((Key)item);
 
-    }
-    private void addKey(Key key){
-        notNull(key);
-        this.keys.add(key);
-    }
-
-    public void addItems(ArrayList<Containable> keys){
-        for (Containable item:keys) {
-            notNull(item);
-            if(item instanceof FlashLight){
-                if(this.flashlight.getName()==NullFlashlight.className()){
-                    this.flashlight = (FlashLight) item;
-                }
-            }
-            else if(item instanceof Gold)
-                this.money += (item).getPrice();
-            else if(item instanceof Key)
-                addKey((Key)item);
+    public void addItems(ArrayList<Containable> items){
+        for (Containable item:items) {
+            this.addItem(item);
         }
     }
-    public void setItems(ArrayList<Containable> keys){
-        this.keys = new ArrayList<Key>();
+    public void setItems(ArrayList<Containable> items){
+        this.playerKeys = new ArrayList<Key>();
         this.money = 0;
         this.flashlight = new NullFlashlight();
-        addItems(keys);
+        addItems(items);
     }
     public void moveRight(){
-        this.pos = Directions.values()[((this.pos.asInt+1)%Directions.values().length)];
+        this.direction = Directions.values()[((this.direction.asInt+1)%Directions.values().length)];
     }
     public void moveLeft() {
-        this.pos = Directions.values()[(this.pos.asInt + Directions.values().length-1) % Directions.values().length];
+        this.direction = Directions.values()[(this.direction.asInt + Directions.values().length-1) % Directions.values().length];
     }
-    public Directions getPos(){
-        return this.pos;
+    public Directions getDirection(){
+        return this.direction;
     }
-
 
     private boolean notNull(Object obj) {
         if (obj != null) return true;

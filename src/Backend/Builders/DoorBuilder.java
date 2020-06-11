@@ -1,14 +1,17 @@
 package Backend.Builders;
 
+import Backend.GameTools.Room;
 import Backend.Items.Door;
 import Backend.Items.Key;
-import Backend.Items.NullObjects.EmptyKey;
+import Backend.Items.NullObjects.NullKey;
 
 public class DoorBuilder {
 
     private String name;
-    private Key requestedKey = new EmptyKey();
-    private boolean isLocked = true;
+    private Key requestedKey = new NullKey();
+    private boolean isOpen = true;
+    private Room sideRoom;
+    private Door linkedDoor;
 
 
     public DoorBuilder setName(String name) {
@@ -20,15 +23,15 @@ public class DoorBuilder {
         this.requestedKey = requestedKey;
         return this;
     }
-    public DoorBuilder setLocked(boolean locked) {
-        isLocked = locked;
+    public DoorBuilder setOpen(boolean open) {
+        isOpen = open;
         return this;
     }
 
     public Door build(){
-        if( (this.requestedKey.getDescription() == EmptyKey.description()) || this.name==null)
+        if( (this.requestedKey.getDescription() == NullKey.description()) || this.name==null)
             throw new IllegalArgumentException();
-        return new Door(this.name,this.isLocked,this.requestedKey);
+        return new Door(this.name,this.isOpen,this.requestedKey);
     }
 
     private boolean notNull(Object obj) {

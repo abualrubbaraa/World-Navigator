@@ -3,8 +3,9 @@ package Backend.GameTools;
 import Backend.Interfaces.Wallable;
 import Backend.Items.NullObjects.Plain;
 
-public class Wall {
+import java.io.Serializable;
 
+public class Wall implements Serializable {
     private Wallable wallContent;
 
     public Wall(){

@@ -1,54 +1,51 @@
 package Backend.Items;
-
 import Backend.Interfaces.Containable;
-import Backend.Items.NullObjects.NullFlashlight;
 
-public class FlashLight  implements Containable {
-    private final String name;
+import java.io.Serializable;
+
+public class FlashLight  implements Containable , Serializable {
+
     private int price;
-    private boolean isLit;
+    private boolean isOn;
 
     public FlashLight(int price){
-        this.name = FlashLight.className();
         this.price=price;
-        this.isLit=false;
+        this.isOn =false;
+    }
+    public static FlashLight getInstance(){
+        return new FlashLight(50);
+    }
+    public static FlashLight valueOf(int price){
+        return new FlashLight(price);
     }
 
-    public void setLit(boolean lit) {
-        isLit = lit;
+    public void setOn(boolean on) {
+        isOn = on;
     }
-    public void turnOn() {
-        this.isLit=true;
-    }
+    public void turnOn() { this.isOn =true; }
     public void turnOff() {
-        this.isLit=false;
+        this.isOn =false;
     }
-    public boolean isLit(){
-        return this.isLit;
-    }
-
     public boolean switchFlashlight(){
-        if(this.getName()== NullFlashlight.className())
-            return false;
-        this.isLit = !this.isLit;
+        this.isOn = !this.isOn;
         return true;
     }
 
-
+    public boolean isOn(){
+        return this.isOn;
+    }
     @Override
     public String getName() {
-        return name;
+        return FlashLight.className();
     }
     @Override
     public int getPrice() {
         return price;
     }
     @Override
-    public String getDescription() { return (getName()); }
-
+    public String getDescription() { return getName(); }
 
     public static String className(){
         return "Flashlight";
     }
-
 }

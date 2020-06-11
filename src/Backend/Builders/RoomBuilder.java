@@ -1,5 +1,4 @@
 package Backend.Builders;
-
 import Backend.GameTools.Room;
 
 public class RoomBuilder {
@@ -10,14 +9,10 @@ public class RoomBuilder {
         isDark = dark;
         return this;
     }
-
     public RoomBuilder setHasLights(boolean hasLights) {
         this.hasLights = hasLights;
         return this;
     }
-
-    public Room build(){
-        return new Room(isDark,hasLights);
-    }
+    public Room build(){ return new Room(isDark,hasLights); }
 
 }
