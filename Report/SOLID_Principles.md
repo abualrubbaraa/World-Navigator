@@ -5,7 +5,7 @@
  
  - In this page i am going to descuss my design for World Navigator Game, let's start..
    
-   ##### 1. Single Responsibility principle.
+##### 1. Single Responsibility principle.
    - My favorite principle, i think there is a reason that they added its letter in the beginning,the hole picture of your project and design will be more clear when you really 
    care about this principle..
    - In my Project -which is a **game** - it's more important to try to distinguish between everything and give it it's own responsibility , they prefer to make every object alone,less coupling for sure and not that much care about memory(in the trade with performance ..). 	
@@ -39,7 +39,7 @@
     -> Items in the GameMap is stored uniquely too! It's something related to it (not for the Game or a Player), and the reason of storing is the huge performance that retrieving it will be (remember, its like a maze, and the room can't really do some **Not** in its responsibility).
    
     
-   ##### 2. Open/Closed principle.
+##### 2. Open/Closed principle.
    
    - Some people may think that this principle is simple or maybe easy to check, just with some practice on the generalization concepts and maybe some **Behavioural**
     design patterns.. but for me actually the hard part is to know when is the right time to stop thinking about what can be added / changed in the future,
@@ -52,10 +52,10 @@
   
    - I heard someone saying that what if i want to add a lock on this new item, so now i can't really act with the others since i added 2 separate behavioursthat will affect each others ,, because if it's locked i can't get what inside! In this case you have many solutions actually not just one.. you have subInterfaces in the Checkable interface that can help you, and you have Lockable interface also to help if your behaviour is really different and may relate to others.
 
-  ##### 3. Liskov substitution.
+##### 3. Liskov substitution.
   - Although these no inherited classes (except for **null Objects** ofcourse) in this project, since this project doesn't have that much similarities do you consider this principle a lot(it will add challenge on how to make them similar in a right way..) , but this principle is very important since we may misunderstood the Inheritance sometimes while comparing with real life situations (which is not always right from the programming side).
   
-  ##### 4. Interface Segregation principle.
+##### 4. Interface Segregation principle.
    
   - Dealing with interfaces and how to use them right is something interesting.. once you finish your brain storming session trying to have
    **one** method interface that will help you, you will feel good while looking how much you enhanced your design..
@@ -80,7 +80,7 @@
    }
    -> And as you can tell,, Buyable and Sellable contains **One** method representing their behaviour.
     
-   ##### 5. Dependency inversion principle.
+##### 5. Dependency inversion principle.
    
    - Almost all the classes that may contact with each others is communication with an general interface that will be implemented in each 
    class in a different way.. (Maybe not and then we can consider strategy patterns) ..
