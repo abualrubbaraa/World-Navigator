@@ -7,8 +7,8 @@
 | ----------- | ----------- |
 | SOLID principles | https://abualrubbaraa.github.io/World-Navigator/Report/SOLID_Principles |
 | Effective Java | https://abualrubbaraa.github.io/World-Navigator/Report/EffectiveJava |
-| Design Patterns,DataStructures and Formatting | https://abualrubbaraa.github.io/World-Navigator/Report/DesignPatterns_DataStructures_Formatting |
-| Clean Code | https://github.com/abualrubbaraa/Report/CleanCode |
+| Design Patterns,DataStructures and Formatting | https://abualrubbaraa.github.io/World-Navigator/Report/DesignPatternsDataStructuresFormatting |
+| Clean Code | https://abualrubbaraa.github.io/World-Navigator/Report/CleanCode |
 | My Experience | https://abualrubbaraa.github.io/World-Navigator/Report/MyExperience |
 
 
