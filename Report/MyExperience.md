@@ -10,15 +10,15 @@
 ### Q&A
 
 # How many designs did you build until you choose the last one?
- - Well , i can say (3)..  I really spend all the time exploring how to design and reading and watching are related useful resours .. but sometimes you just need to start going in details  so you can fill these gaps in your voision .. 
--> One of the designs that i had built  includeed  the following :
+ - Well , i can say (3)..  I really spend all the time exploring how to design and reading and watching are related useful resources .. but sometimes you just need to start going in details  so you can fill these gaps in your voisin .. 
+-> One of the designs that i had built  included  the following :
 Wall with 2 sides .. 
 Wall can be in two rooms , each one of them on a side.
-Wall can have many items in many directions .. you have to spicify where to look ..
+Wall can have many items in many directions .. you have to specify where to look ..
 Items? items just need to implement **Lookable** interface which includes 
 look();
 runCommand(Command command);
 
-but, while reading a game design book, they said the in game development .. its better always to separate everything ,even if it's not possible in reality (2 rooms connected by outside reference ). So i decided to change everything after taking that on considration ..
+but, while reading a game design book, they said the in game development .. its better always to separate everything ,even if it's not possible in reality (2 rooms connected by outside reference ). So i decided to change everything after taking that on consideration ..
 
 
