@@ -25,4 +25,9 @@ public class NullFlashlight extends FlashLight implements Serializable {
     public static String className(){
         return "Null";
     }
+
+    @Override
+    public String toString() {
+        return "Null";
+    }
 }

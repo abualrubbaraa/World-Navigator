@@ -10,4 +10,9 @@ public class NullRoom extends Room implements Serializable {
     public static String className(){
         return "Null";
     }
+
+    @Override
+    public String toString() {
+        return "Null";
+    }
 }

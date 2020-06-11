@@ -5,24 +5,25 @@ import Backend.Interfaces.Wallable;
 import Backend.Items.NullObjects.NullKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Painting implements Wallable,Checkable.ForContent, Serializable {
 
     private Key itemIn;
 
     private Painting(){ this.itemIn=new NullKey(); }
-    private Painting(Key key){ this.itemIn=key; }
+    private Painting(Key key){ 
+        Objects.requireNonNull(key);
+        this.itemIn=key; 
+    }
     public static Painting getInstance(){ return new Painting(); }
     public static Painting valueOf(Key key){ return new Painting(key); }
 
     public void setInside(Key key){
-        notNull(key);
+        Objects.requireNonNull(key);
         this.itemIn=key;
     }
-    private boolean notNull(Object obj) {
-        if (obj != null) return true;
-        throw new NullPointerException();
-    }
+
 
     public Key getInside() {
         return itemIn;
@@ -42,6 +43,11 @@ public class Painting implements Wallable,Checkable.ForContent, Serializable {
     }
 
     public static String className(){
+        return "Painting";
+    }
+
+    @Override
+    public String toString() {
         return "Painting";
     }
 }

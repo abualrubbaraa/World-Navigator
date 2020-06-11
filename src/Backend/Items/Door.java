@@ -7,6 +7,7 @@ import Backend.Interfaces.Wallable;
 import Backend.GameTools.Room;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class Door implements Wallable, Checkable.ForOpenablility, Openable , Lockable, Serializable {
@@ -16,6 +17,8 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
     private boolean isOpen;
     private Room sideRoom;
     private Door linkedDoor;
+
+
 
     public Door(String name, boolean isOpen, Key requestedKey){
         this.name=name;
@@ -28,12 +31,15 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
         isOpen = open;
     }
     public void setSideRoom(Room room){
-        notNull(room);
+        Objects.requireNonNull(room);
         this.sideRoom=room;
     }
     public void setLinkedDoor(Door door){
-        notNull(door);
+        Objects.requireNonNull(door);
         this.linkedDoor = door;
+    }
+    public void setRequestedKey(Key requestedKey) {
+        this.requestedKey = requestedKey;
     }
 
     public String getName() { return name; }
@@ -46,33 +52,33 @@ public class Door implements Wallable, Checkable.ForOpenablility, Openable , Loc
     public String look() { return Door.className(); }
     @Override
     public boolean check() {
-        if( !isOpen) return true;
-        else return false;
+       return isOpen;
     }
     @Override
     public void open() {
-        if( !isOpen)
+        if(isOpen)
             System.out.println("nothing happenes\n");
         else
             System.out.println(this.requestedKey.getName()+" key required to unlock\n");
     }
     @Override
     public String useKey(Key key) {
-        notNull(key);
+        Objects.requireNonNull(key);
         if (this.requestedKey == key) {
             isOpen = !isOpen;
             this.linkedDoor.setOpen(isOpen);
-            return(Door.className()+ ((isOpen == true) ? " looked" : " opened"));
+            return(Door.className()+ ((isOpen == false) ? " looked" : " opened"));
         } else
             return(key.getName() + " key is not suitable for this door." + this.requestedKey.getName() + " needed.\n");
-    }
-
-    private boolean notNull(Object obj) {
-        if (obj != null) return true;
-        throw new NullPointerException();
     }
 
     public static String className() {
         return "Door";
     }
+
+    @Override
+    public String toString() {
+        return this.name + " Door";
+    }
+
 }

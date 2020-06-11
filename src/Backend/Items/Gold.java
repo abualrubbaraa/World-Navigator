@@ -2,12 +2,14 @@ package Backend.Items;
 import Backend.Interfaces.Containable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Gold implements Containable, Serializable {
 
     private int goldPrice;
 
     public Gold(int price){
+        Objects.requireNonNull(price);
         this.goldPrice = price;
     }
 
@@ -19,6 +21,11 @@ public class Gold implements Containable, Serializable {
     public String getDescription() { return this.goldPrice+" of "+ Gold.className(); }
 
     public static String className(){
+        return "Gold";
+    }
+
+    @Override
+    public String toString() {
         return "Gold";
     }
 }

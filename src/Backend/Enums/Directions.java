@@ -1,27 +1,27 @@
 package Backend.Enums;
 
-import Backend.GameTools.Wall;
-
 public enum Directions {
+  NORTH(0),
+  EAST(1),
+  SOUTH(2),
+  WEST(3);
+  public int asInt;
 
-     NORTH,EAST,SOUTH,WEST;
+  Directions(int asInt) {
+    this.asInt = asInt;
+  }
 
-    public int asInt;
-    Directions() {
-        this.asInt = ordinal();
+  public static Directions getOppositeDirection(Directions direction) {
+    switch (direction) {
+      case NORTH:
+        return SOUTH;
+      case EAST:
+        return WEST;
+      case WEST:
+        return EAST;
+      case SOUTH:
+        return NORTH;
     }
-    public static Directions getOppositeDirection(Directions direction){
-        switch (direction) {
-            case NORTH:
-                return SOUTH;
-            case EAST:
-                return WEST;
-            case WEST:
-                return EAST;
-            case SOUTH:
-                return NORTH;
-        }
-        throw new IllegalArgumentException();
-    }
-
+    throw new IllegalArgumentException();
+  }
 }

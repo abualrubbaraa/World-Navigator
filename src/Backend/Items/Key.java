@@ -1,40 +1,35 @@
 package Backend.Items;
 
 import Backend.Interfaces.Containable;
-
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Key implements Containable , Serializable {
 
     private  String name;
     private  int price;
-    private  String relatedDoor;
+    private  String relatedLock;
 
-    public Key(String name, int price, String relatedDoor){
-        if(notNull(name) && notNull(relatedDoor) && price>=0) {
+    public Key(String name, int price, String relatedLock){
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(relatedLock);
+        if(price>=0) {
             this.name=name;
             this.price= price;
-            this.relatedDoor=relatedDoor;
+            this.relatedLock =relatedLock;
         }
         else
             throw new NullPointerException();
     }
 
-    public void setRelatedDoor(String relatedDoor){
-        if(notNull(relatedDoor))
-            this.relatedDoor=relatedDoor;
-        else
-            throw new NullPointerException();
+    public void setRelatedLock(String relatedLock){
+        Objects.requireNonNull(relatedLock);
+        this.relatedLock =relatedLock;
     }
-    public String getRelatedDoor() {
-        return relatedDoor;
+    public String getRelatedLock() {
+        return relatedLock;
     }
 
-    private boolean notNull(Object obj){
-        if(obj!=null)
-            return true;
-        return false;
-    }
 
     @Override
     public String getName() {
@@ -50,4 +45,10 @@ public class Key implements Containable , Serializable {
     public static String className(){
         return "Key";
     }
+
+    @Override
+    public String toString() {
+        return this.getName()+" Key";
+    }
+
 }

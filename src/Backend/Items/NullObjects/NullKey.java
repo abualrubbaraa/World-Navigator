@@ -16,4 +16,9 @@ public class NullKey extends Key implements Serializable {
     public String getDescription() {
         return "Null";
     }
+
+    @Override
+    public String toString() {
+        return "Null";
+    }
 }

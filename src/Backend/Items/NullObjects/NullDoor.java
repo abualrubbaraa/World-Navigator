@@ -12,4 +12,7 @@ public class NullDoor extends Door implements Serializable {
     public static String className(){
         return "Null";
     }
+
+    @Override
+    public String toString() { return "Null";}
 }

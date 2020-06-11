@@ -6,33 +6,47 @@ import Backend.Items.Key;
 import Backend.Items.NullObjects.NullKey;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public  class ChestBuilder  {
+public class ChestBuilder {
 
-    private boolean isOpen = false;
-    private Key requiredKey = new NullKey();
-    private ArrayList<Containable> content  = new ArrayList<>();
+  private String chestName;
+  private boolean isOpen = false;
+  private Key requiredKey = new NullKey();
+  private ArrayList<Containable> content = new ArrayList<>();
 
-    public ChestBuilder setOpen(boolean open) {
-        isOpen = open;
-        return this;
-    }
-    public ChestBuilder setRequiredKey(Key requiredKey) {
-        notNull(requiredKey);
-        this.requiredKey = requiredKey;
-        return this;
-    }
-    public ChestBuilder setContent(ArrayList<Containable> content) {
-        for (Containable itemInList:content) { notNull(itemInList); }
-        this.content = content;
-        return this;
-    }
-    public Chest build(){
-        return new Chest(this.isOpen,this.requiredKey,this.content);
-    }
+  public ChestBuilder setChestName(String name) {
+    this.chestName = name;
+    return this;
+  }
 
-    private boolean notNull(Object obj) {
-        if (obj != null) return true;
-        throw new NullPointerException();
+  public ChestBuilder setOpen(boolean open) {
+    isOpen = open;
+    return this;
+  }
+
+  public ChestBuilder setRequiredKey(Key requiredKey) {
+    Objects.requireNonNull(requiredKey);
+    this.requiredKey = requiredKey;
+    return this;
+  }
+
+  public ChestBuilder setContent(ArrayList<Containable> content) {
+    for (Containable itemInList : content) {
+      Objects.requireNonNull(itemInList);
     }
+    this.content = content;
+    return this;
+  }
+
+  public Chest build() {
+    if ((this.requiredKey.getDescription() == NullKey.description()) || this.chestName == null)
+      throw new IllegalArgumentException();
+    return new Chest(this.chestName,this.isOpen, this.requiredKey, this.content);
+  }
+
+  @Override
+  public String toString() {
+    return "ChestBuilder";
+  }
 }

@@ -2,6 +2,7 @@ package Backend.Items;
 import Backend.Interfaces.Containable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class FlashLight  implements Containable , Serializable {
 
@@ -9,6 +10,7 @@ public class FlashLight  implements Containable , Serializable {
     private boolean isOn;
 
     public FlashLight(int price){
+        Objects.requireNonNull(price);
         this.price=price;
         this.isOn =false;
     }
@@ -48,4 +50,7 @@ public class FlashLight  implements Containable , Serializable {
     public static String className(){
         return "Flashlight";
     }
+
+    @Override
+    public String toString() { return ("Flashlight"); }
 }

@@ -5,37 +5,40 @@ import Backend.Items.Door;
 import Backend.Items.Key;
 import Backend.Items.NullObjects.NullKey;
 
+import java.util.Objects;
+
 public class DoorBuilder {
 
-    private String name;
-    private Key requestedKey = new NullKey();
-    private boolean isOpen = true;
-    private Room sideRoom;
-    private Door linkedDoor;
+  private String name;
+  private Key requestedKey = new NullKey();
+  private boolean isOpen = true;
+
+  public DoorBuilder setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public DoorBuilder setRequestedKey(Key requestedKey) {
+    Objects.requireNonNull(requestedKey);
+    this.requestedKey = requestedKey;
+    return this;
+  }
+
+  public DoorBuilder setOpen(boolean open) {
+    this.isOpen = open;
+    return this;
+  }
+
+  public Door build() {
+    if ((this.requestedKey.getDescription() == NullKey.description()) || this.name == null)
+      throw new IllegalArgumentException();
+
+    return new Door(this.name, this.isOpen, this.requestedKey);
+  }
 
 
-    public DoorBuilder setName(String name) {
-        this.name = name;
-        return this;
-    }
-    public DoorBuilder setRequestedKey(Key requestedKey) {
-        notNull(requestedKey);
-        this.requestedKey = requestedKey;
-        return this;
-    }
-    public DoorBuilder setOpen(boolean open) {
-        isOpen = open;
-        return this;
-    }
-
-    public Door build(){
-        if( (this.requestedKey.getDescription() == NullKey.description()) || this.name==null)
-            throw new IllegalArgumentException();
-        return new Door(this.name,this.isOpen,this.requestedKey);
-    }
-
-    private boolean notNull(Object obj) {
-        if (obj != null) return true;
-        throw new NullPointerException();
-    }
+  @Override
+  public String toString() {
+    return "DoorBuilder";
+  }
 }

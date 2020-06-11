@@ -5,6 +5,7 @@ import Backend.Interfaces.Wallable;
 import Backend.Items.NullObjects.NullKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Mirror implements Wallable, Checkable.ForContent , Serializable {
     private Key itemIn;
@@ -19,17 +20,14 @@ public class Mirror implements Wallable, Checkable.ForContent , Serializable {
         return new Mirror();
     }
     public static Mirror valueOf(Key key){
+        Objects.requireNonNull(key);
         return new Mirror(key);
     }
     
     
     public void setInside(Key key){
-        notNull(key);
+        Objects.requireNonNull(key);
         this.itemIn=key;
-    }
-    private boolean notNull(Object obj) {
-        if (obj != null) return true;
-        throw new NullPointerException();
     }
 
     public Key getInside() {
@@ -52,4 +50,7 @@ public class Mirror implements Wallable, Checkable.ForContent , Serializable {
     public static String className(){
         return "Mirror";
     }
+
+    @Override
+    public String toString() { return "Mirror"; }
 }

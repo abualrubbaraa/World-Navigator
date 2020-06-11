@@ -1,9 +1,7 @@
 package Backend.Interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public interface Tradable {
-    public ArrayList<Containable> getItems();
-    public boolean sellItem(Containable item);
-    public void buyItem(Containable item);
+public interface Tradable extends Buyable, Sellable {
+  public List<Containable> getItems();
 }

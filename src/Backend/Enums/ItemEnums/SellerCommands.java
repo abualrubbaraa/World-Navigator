@@ -1,11 +1,12 @@
 package Backend.Enums.ItemEnums;
 
 public enum SellerCommands {
-    trade('t');
-    public int asInt;
-    public char asChar;
-    private SellerCommands(char c){
-        this.asInt = ordinal();
-        this.asChar=c;
-    }
+  trade(0, 't');
+  public int asInt;
+  public char asChar;
+
+  private SellerCommands(int asInt, char asChar) {
+    this.asInt = ordinal();
+    this.asChar = asChar;
+  }
 }

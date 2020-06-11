@@ -1,17 +1,16 @@
 package Backend.Enums;
 
 public enum BaseCommands {
+  Look('l'),
+  Use_Flashlight('f'),
+  Turn_Lights('t'),
+  Player_Status('p'),
+  Restart('r'),
+  Quit('q');
 
-    Look('l'),
-    Use_Flashlight('f'),
-    Turn_Lights('t'),
-    Player_Status('p'),
-    Restart('r'),
-    Quit('q');
+  public char asChar;
 
-    public char asChar;
-    BaseCommands(char c) {
-        this.asChar=c;
-    }
-
+  BaseCommands(char c) {
+    this.asChar = c;
+  }
 }

@@ -8,4 +8,8 @@ public class Plain implements Wallable, Serializable {
     public String look() {
         return "Plain";
     }
+    @Override
+    public String toString() {
+        return "Plain";
+    }
 }
